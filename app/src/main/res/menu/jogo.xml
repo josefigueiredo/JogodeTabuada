@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.upf.ppgca.jogodetabuada.Jogo" >
+    <item android:id="@+id/menuLimpar"
+        android:title="Limpar"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

@@ -1,0 +1,55 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/msg1"
+        android:id="@+id/txt"
+        android:layout_gravity="center_horizontal"
+        android:textSize="35dp"
+        android:textIsSelectable="false"
+        android:gravity="center" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn1"
+        android:id="@+id/btn1"
+        android:layout_gravity="center_horizontal"
+        android:onClick="nivel1"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn2"
+        android:id="@+id/btn2"
+        android:layout_gravity="center_horizontal"
+        android:onClick="nivel2"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn3"
+        android:id="@+id/btn3"
+        android:layout_gravity="center_horizontal"
+        android:onClick="nivel3"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn4"
+        android:id="@+id/btn4"
+        android:layout_gravity="center_horizontal"
+        android:onClick="nivel4"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn5"
+        android:id="@+id/btn5"
+        android:layout_gravity="center_horizontal"
+        android:onClick="nivel5"/>
+
+</LinearLayout>
