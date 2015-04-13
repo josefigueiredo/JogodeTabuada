@@ -10,7 +10,7 @@
         android:text="@string/msg1"
         android:id="@+id/txt"
         android:layout_gravity="center_horizontal"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textIsSelectable="false"
         android:gravity="center" />
 

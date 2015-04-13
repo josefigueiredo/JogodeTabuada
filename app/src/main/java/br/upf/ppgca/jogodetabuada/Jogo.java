@@ -19,7 +19,7 @@ import java.util.Random;
 public class Jogo extends Activity {
     protected EditText edtResposta;
     protected TextView txtBase,txtOper;
-    protected int respCerta,respDada, base,oper, nivel;
+    protected int respCerta,respDada, base,oper, nivel, pontos;
     ImageView fig;
 
     @Override
