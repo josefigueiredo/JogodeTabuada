@@ -1,9 +1,14 @@
 package br.upf.ppgca.jogodetabuada;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,28 +22,59 @@ import java.util.Random;
 
 
 public class Jogo extends Activity {
+    private ApoioBD helper;
+
     protected EditText edtResposta;
-    protected TextView txtBase,txtOper;
-    protected int respCerta,respDada, base,oper, nivel, pontos;
+    protected TextView txtBase,txtOper,txtPontos;
+    protected int respCerta,respDada, base,oper, nivel, contaAcertos = 0;
+    private long pontos = 0;
     ImageView fig;
+
+
+    @Override
+    protected void onDestroy() {
+       /* int recorde;
+        //salva a pontuação no banco na finalização do jogo...
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String sql = "SELECT pontos FROM pontos WHERE _id = "+1+";";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        recorde = Integer.parseInt(c.getString(0).toString());
+
+        if(pontos > recorde){
+            Toast.makeText(this,"Novo recorde: "+recorde,Toast.LENGTH_LONG).show();
+            ContentValues valores = new ContentValues();
+            valores.put("pontos",pontos);
+            db.insert("pontos","",valores);
+        }
+        c.close();
+        db.close();
+
+*/
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogo);
 
+        //instancia objeto de apoio para acesso ao Banco
+        helper = new ApoioBD(this);
+
         edtResposta = (EditText)findViewById(R.id.edtResposta);
         txtBase = (TextView)findViewById(R.id.txtBase);
         txtOper = (TextView)findViewById(R.id.txtOper);
+        txtPontos = (TextView)findViewById(R.id.txtPontos);
+
         fig = (ImageView)findViewById(R.id.imageView);
 
         Bundle b = getIntent().getExtras();
 
         base =  Integer.parseInt(b.get("base").toString());
         nivel = Integer.parseInt(b.get("nivel").toString());
-
+        txtPontos.setText(getResources().getString(R.string.strPontos) + pontos);
         fig.setImageResource(R.drawable.ic_launcher);
-
         switch (nivel){
             case 1:
                 oper = 1;
@@ -82,9 +118,6 @@ public class Jogo extends Activity {
                 finish();
                 break;
         }
-
-
-
     }
 
 
@@ -115,12 +148,21 @@ public class Jogo extends Activity {
     public void responde(View v){
         String resposta = edtResposta.getText().toString();
         if(resposta.equals("")){
-            Log.d("buscaErro", "igual a vazio");
-            Toast.makeText(this,"Você não deu a resposta !",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.strMsgEmptyResponse),Toast.LENGTH_SHORT).show();
             //limpar(v);
         }else{
             respDada = Integer.parseInt(resposta);
             if(respCerta == respDada){
+                //calcula a pontuação acumula valor de nivel * respostaCerta...
+                pontos += (nivel * respCerta);
+                contaAcertos++;
+
+                //bonus a cada 10 acertos corridos
+                if(contaAcertos == 10){
+                    Toast.makeText(this,getResources().getString(R.string.strPontos),Toast.LENGTH_SHORT).show();
+                    pontos += 100;
+                    contaAcertos = 0; //zera contador de acertos
+                }
                 //acertou a resposta - minion feliz e som bonito
                 Random rand = new Random();
                 int numMiniom = rand.nextInt(7)+1;
@@ -208,6 +250,9 @@ public class Jogo extends Activity {
                 }
             }else{
                 //errou a resposta - minion zangado e e som feio
+                //calcula a pontuação acumula valor de nivel * respostaCerta...
+                pontos -= (nivel * respCerta);
+
                 Random r = new Random();
                 int numMiniom = r.nextInt(4)+1;
 
@@ -242,6 +287,7 @@ public class Jogo extends Activity {
 
             }
             limpar(v);
+            txtPontos.setText(getResources().getString(R.string.strPontos) + pontos);
         }
 
     }

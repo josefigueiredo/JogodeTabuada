@@ -11,15 +11,13 @@ public class ApoioBD extends SQLiteOpenHelper{
     private static final String banco = "pontuacao.db";
     private static final int ver = 1;
 
-    public ApoioBD(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, banco, factory, ver);
+    public ApoioBD(Context context) {
+        super(context, banco, null, ver);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE pontos(pontos INTEGER);";
-        sqLiteDatabase.execSQL(sql);
-        sql = "CREATE TABLE recorde(recorde INTEGER);";
+        String sql = "CREATE TABLE pontos(_id INTEGER NOT NULL,pontos INTEGER);";
         sqLiteDatabase.execSQL(sql);
     }
 

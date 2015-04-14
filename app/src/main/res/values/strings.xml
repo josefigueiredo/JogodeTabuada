@@ -24,5 +24,7 @@
     <string name="btnLimpar">Limpar</string>
     <string name="btnResponde">Ok</string>
     <string name="title_activity_jogo_numero_oculto">Ache o número oculto!</string>
-
+    <string name="strPontos">Pontos:</string>
+    <string name="strMsgBonus">10 acertos: Ganhou bônus de 100 pontos!</string>
+    <string name="strMsgEmptyResponse">Você não deu uma resposta!</string>
 </resources>

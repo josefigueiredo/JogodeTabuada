@@ -160,7 +160,7 @@ public class JogoNumeroOculto extends Activity {
 
 
         }else{
-            Toast.makeText(this,"Você não deu uma resposta! Tente novamente.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.strMsgEmptyResponse),Toast.LENGTH_SHORT).show();
         }
         limpar(v);
 
